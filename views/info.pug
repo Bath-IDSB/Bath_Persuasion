@@ -1,0 +1,41 @@
+extends ui_layout
+
+block content
+
+  .ui.text.container
+    br
+    h2 Welcome to Make it Happen! 
+        h3 Here's what you can do on Make it Happen.
+    ul
+        li Reply to others' posts <i class=" send link icon huge blue"></i>.
+        li Like others' posts <i class="thumbs up icon huge green"></i>.
+        if ((user.group == 'consensus_lc') || (user.group == 'consensus_hc'))
+            li Dislike others' posts <i class="thumbs down icon huge red"></i>.
+        
+        li Flag others' posts <i class="flag checkered icon huge grey"></i>.
+        //-li Fill out your profile. You can add as much or as little info as you want.
+        li Send direct messages to others <i class="envelope icon huge purple"></i>.
+        li Report users to our moderators <i class="edit icon huge brown"></i>.
+        li Block users as well <i class="ban icon huge orange"></i>.
+        li Check the remaning time for your session <i class="clock icon huge"></i>.
+    //-img.ui.centered.image(src='/public/esl-howto.png')
+    br
+    //-img.ui.centered.image(src='/public/profile.png')
+    h3 See who else is around.
+    //-p We'll notify you if someone replies to or likes your post.
+    //-if user.transparency == "yes"
+        p We'll also keep track of which posts you've viewed. To keep things social, we'll let others know when you view their posts, and notify you when they view yours.
+        img.ui.centered.image(src='/public/UI-read.png')
+            
+    .ui.divider
+    //-if user.profile_perspective == 'yes'
+        .ui.big.green.labeled.icon.button.profile
+            i.rocket.icon
+            |   Let's Go!
+    //-else
+    .ui.big.green.labeled.icon.button.info
+            i.rocket.icon
+            |   Let's Go!
+    br
+    br
+    br

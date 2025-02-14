@@ -1,0 +1,22 @@
+From @othman
+ 
+1) Able to use the command line (shell) to be able to install packages and dependencies required for the project either on Linux or another similar operating system. Truman also has a basic leaflet explaining a bit about how to install and run the app.
+
+2) A basic understating of The MVC (Model View Controller) concept or architecture. This is how the code is structured and used to route in/out data from the View (front-end), Controllers, and the Database at the back.  
+
+2) Nodejs is the main ecosystem or the software environment used to develop the web app so knowing how to use basic commands such as npm (package manager) etc.
+
+3) JavaScript is the primary language used at the back-end side and the front (basic and advanced Database operations as well as asynchronous programming ).
+
+4) MongoDB is the type of database used to create the data Model. The Database could be installed on the local machine (db server runs on the same machine where the web app is hosted) or used in the cloud (Atala MongoDB) which is better since you get to keep your data even if you delete your web app on the local machine
+
+5) JQuery: Basic understating of the JQuery library (some of the commands) is also used at the fort-end script.
+
+6) PUG ( aka Jade): is the rendering engine that is used to render the view and enable mixing static content with dynamic UI features. There is no HTML code in the front end (views) - instead, the Pug language is used to describe the HTML pages.
+
+7) Semantic-UI: is the Graphical library (Widget Library) used in the front-end and provides the different UI features so the PUG language will be used to manipulate the logic as well as the widgets in the front-end
+     
+8) The Web App is based on other software packages imported from Nodejs (express for web server, mongoose for database, etc.). 
+9) The front end is not based on an automatic framework so it is a bit manual.
+
+This is in summary the technologies that make up the software stack.

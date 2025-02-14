@@ -1,0 +1,235 @@
+extends ui_layout_no
+  
+block content
+
+  //-.computer.only.tablet.only.four.wide.column
+  .four.wide.computer.ten.wide.tablet.sixteen.wide.mobile.column
+    .ui.positive.message.hidden(id='alertMsg',createTime=user.createdAt.getTime(),style='position: fixed;left: 0px;right: 0px;top:6em;z-index:10')
+          i.icon.close
+          .content
+            center.aligned.header Your session will expire soon!.
+            ul
+              li You will be automatically redirected to the final survey.
+              li Please complete the final survey to ensure you will be paid for your participation.
+
+    .ui.card.fluid
+      .image
+        if user.profile.picture
+          img(src='/user_post/'+user.profile.picture)
+        else
+          img(src=user.gravatar(60))
+      .content
+        a.header(href='/me')= user.profile.name || user.email || user.id
+        .meta="@"+user.username
+        .description=user.profile.bio
+        .description
+          if user.profile.location
+            i.marker.icon
+            span=user.profile.location
+      //.one.ui.bottom.attached.icon.buttons
+          //button.ui.editprofile.button(data-tooltip='Update Your Profile', data-position='bottom left')
+            //i.edit.icon
+  .eight.wide.computer.ten.wide.tablet.sixteen.wide.mobile.column             
+    each val in posts
+      -var u_class;
+      -if (val.actorAuthor) {u_class = "actorReply"}
+      -else if (val.reply) {u_class = "userReply"}
+      -else {u_class = "userPost"}
+      .ui.fluid.card(u_postID=val.id, ui=user.ui, notify=user.notify, type=u_class, postID=val.postID)
+        if val.reply
+          .content
+            .right.floated.time.meta= (user.createdAt.getTime() + val.relativeTime)
+            |  
+            a.ui.avatar.image(href='/me')
+              if user.profile.picture
+                img(src='/user_post/'+user.profile.picture)
+              else
+                img(src=user.gravatar(60))
+              a(href='/me')
+                span=user.profile.name || user.email || user.id
+          .content
+            .description=val.body
+          .extra.content
+            .ui.fluid.card
+              .content
+                .right.floated.time.meta= (user.createdAt.getTime() + val.reply.time)
+                |  
+                img.ui.avatar.image(src='/profile_pictures/'+val.reply.actor.profile.picture)
+                span=val.reply.actor.profile.name
+              if val.reply.picture
+                .image
+                  img(src="/"+val.reply.picture)
+              .content
+                .description=val.reply.body
+          .three.ui.bottom.attached.icon.buttons
+              .ui.reply.button(tabindex='0')
+              .ui.button(tabindex='0')
+                i.reply.icon
+                |  Reply
+              .ui.flag.button(tabindex='0')
+              .ui.button(tabindex='0')
+                i.flag.icon
+                |  Flag
+              if val.like
+                //-.ui.red.like.button
+                .ui.red.button
+                  i.heart.icon
+                  |  Like
+              else
+                //-.ui.like.button
+                .ui.button
+                  i.heart.icon
+                  |  Like
+        else
+          .content
+            .right.floated.time.meta= (user.createdAt.getTime() + val.relativeTime)
+            |  
+            a.ui.avatar.image(href='/me')
+              if user.profile.picture
+                img(src='/user_post/'+user.profile.picture)
+              else
+                img(src=user.gravatar(60))
+            a(href='/me')
+              span=user.profile.name || user.email || user.id
+          .image
+            img(src='/user_post/'+val.picture)
+          .content
+            .description=val.body
+          .two.ui.bottom.attached.icon.buttons
+              .ui.reply.button(tabindex='0')
+                i.reply.icon
+                |  Reply
+              if val.liked
+                .ui.red.like.button
+                  i.heart.icon
+                  |  Like
+              else
+                .ui.like.button
+                  i.heart.icon
+                  |  Like
+          if val.comments.length > 0
+            .content
+              .ui.comments
+                each comment in val.comments
+                  //-IF this comment is USER made, do this
+                  if (user.createdAt.getTime() + comment.time) < Date.now()
+                    if !comment.flagged
+                      if comment.new_comment
+                        -console.log("New COMMENT AREA");
+                        .comment(commentID=comment.commentID)
+                          a.avatar.image(href='/me')
+                            if user.profile.picture
+                              img(src='/user_post/'+user.profile.picture)
+                            else
+                              img(src=user.gravatar(60))
+                          .content
+                            a.author(href='/me')=user.profile.name || user.username || user.id
+                            .metadata
+                              span.date=(user.createdAt.getTime() + comment.time)
+                              .rating
+                                if comment.liked
+                                  i.red.heart.icon
+                                  span=comment.likes
+                                  | Likes 
+                                else
+                                  i.heart.icon
+                                  span.num=comment.likes
+                                  |  Likes
+                            .text=comment.body
+                            .actions
+                              if comment.liked
+                                a.red.like.comment Like
+                              else
+                                a.like.comment Like
+                              a.flag.comment Flag
+                              //-a.flag.comment Flag
+                      //- Else this is a normal comment from the script
+                      else
+                        .comment(commentID=comment.commentID)
+                          a.avatar(href='/user/'+comment.actor.username)
+                            img(src='/profile_pictures/'+comment.actor.profile.picture)
+                          .content
+                            a.author(href='/user/'+comment.actor.username)=comment.actor.profile.name
+                            .metadata
+                              span.date=(user.createdAt.getTime() + comment.time)
+                              .rating
+                                if comment.liked
+                                  i.red.heart.icon
+                                  span=comment.likes
+                                  | Likes 
+                                else
+                                  i.heart.icon
+                                  span.num=comment.likes
+                                  |  Likes
+                            .text=comment.body
+                            .actions
+                              if comment.liked
+                                a.red.like.comment Like
+                              else
+                                a.like.comment Like
+                              a.flag.comment Flag
+          .extra.content
+            .ui.fluid.left.labeled.right.icon.input
+              .ui.label
+                if user.profile.picture
+                  img.ui.avatar.image(src='/user_post/'+user.profile.picture, name=user.profile.name || user.username || user.id)
+                else
+                  img.ui.avatar.image(src=user.gravatar(60), name=user.profile.name || user.username || user.id)            
+              input.newcomment(type='text', placeholder='Write a Comment')
+              i.big.send.link.icon
+
+    //.ui.small.hide.coupled.modal
+      //  i.close.icon
+        //.header Hide My Post
+        //.content
+          //form#hideform.ui.reply.form(action='/userPost_feed', method='POST')
+            //input(type='hidden', name='_csrf', value=_csrf)
+            ////input(type='hidden', name='postID', value=postID)
+            //.ui.form
+              //.grouped.fields
+                //label(for='hide_issue') Oops! It seems you no longer want to share your post. Can you explain why?
+                //.field
+                  //.ui.radio.checkbox
+                    //input.hidden(type='radio', name='hide_issue', value="food", tabindex='0')
+                    //label Not interested in the food
+                //.field
+                  //.ui.radio.checkbox
+                    //input.hidden(type='radio', name='hide_issue', value="picture",tabindex='0')
+                    //label The picture quality is not good
+                //.field
+                  //.ui.radio.checkbox
+                    //input.hidden(type='radio', name='hide_issue', value="harm", tabindex='0')
+                    //label It might hurt someone''s feelings
+                //.field
+                  //.ui.radio.checkbox
+                    //input.hidden(type='radio', name='hide_issue', value="Nothing", tabindex='0')
+                    //label No resons at all
+              //.ui.error.message
+        //.actions
+          //.ui.buttons
+            //button.ui.cancel.button Cancel
+            //or
+            //input.ui.green.button(type='submit', value='Hide', form='hideform')
+            //input.ui.green.button(type='submit', value='Hide', form='hideform')
+          //.ui.small.firsthide.coupled.modal
+          //  .header Report Has Been Sent!
+          //  .content
+          //  .description
+          //    p This user has been reported to the admins. Thank you for helping the community!
+          //  .actions
+          //  .ui.approve.button
+          //  i.checkmark.icon
+           //   |         Continue
+          
+          //.ui.floating.message
+            //i.close.icon
+            //.content
+             //.header Welcome Back
+             //p This a special notification which you can dismiss if you are bored with it.
+
+          //form.ui.form
+          //  .field
+          //    label Private Message
+          //    input(type='text' name='pvt-msg' placeholder='Private Message')
+          //  .ui.green.button(type='submit') Submit
+

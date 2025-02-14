@@ -1,0 +1,57 @@
+extends ui_layout
+
+
+block content
+  .computer.only.tablet.only.four.wide.column 
+  #content.eight.wide.computer.ten.wide.tablet.sixteen.wide.mobile.column
+    #album
+      .ui.piled.compact.segment
+        .floating.ui.red.label 9
+        .ui.card(id='album_card')
+          .blurring.dimmable.image
+            .ui.inverted.dimmer
+              .content
+                .center
+                  .ui.red.button.view VIEW
+            img(src='/post_pictures/'+'IMG_20160625_113114.jpg')
+          .content
+            #rate.ui.star.rating.right.floated(data-rating="3")
+            .header Animals
+            .meta
+              span
+                i.calendar.icon
+                | Created 04/03/2021
+              //span
+               // i.history.right.floated.icon
+                 // | Modified 05/03/2021
+            .description
+              | Different animals from around the world
+          .extra.content
+            .ui.right.labeled.button(data-content="Dislike it!", data-variation="tiny")
+              .ui.red.icon.tiny.button
+                i.thumbs.outline.down.large.icon
+                //i.angle.down.large.icon
+              a.ui.basic.red.left.pointing.label 365
+            .ui.left.labeled.right.floated.button(data-content="Like it", data-variation="tiny")
+              a.ui.basic.red.left.pointing.label 183
+              .ui.green.icon.tiny.button
+                i.thumbs.outline.up.large.icon
+                //i.angle.up.large.icon
+      #album_items
+        button.ui.labeled.icon.button.back
+          i.arrow.lircle.left.icon
+          | Back
+        .ui.cards
+          .card
+            .image
+              img(src='/post_pictures/11.jpg')
+            .content
+              .header friends.jpg
+              .meta 263 KB
+            .ui.bottom.attached.basic.buttons
+              button.ui.button
+                i.pencil.icon
+              button.ui.button
+                i.trash.icon
+              
+

@@ -1,0 +1,25 @@
+extends ../ui_layout
+
+block content
+  //-.computer.only.tablet.only.eight.wide.column
+  .eight.wide.computer.eight.wide.tablet.sixteen.wide.mobile.column
+    img.ui.fluid.image(src='/public/homepage.jpg')
+  
+  .eight.wide.computer.eight.wide.tablet.sixteen.wide.mobile.column
+    h2.ui.header Welcome to Eat, Snap & Love.
+    form.ui.form(method='POST')
+      input(type='hidden', name='_csrf', value=_csrf)
+      .field
+        label(for='username') User name
+        input(type='text', name='username', id='username', placeholder='User Name', autofocus, required).field
+      .field
+        label(for='prolificID') Prolific ID
+        input(type='text', name='ProlificID', id='prolificID', placeholder='Prolific ID', required)
+      button.ui.button(type='submit') Login
+      //a(href='/forgot') Forgot your password?
+    .ui.horizontal.divider
+      | Or
+    .center.aligned.column
+      .ui.big.green.labeled.icon.button.signup
+        i.signup.icon
+        |   Sign Up

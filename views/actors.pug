@@ -1,0 +1,15 @@
+extends ui_layout
+
+block content
+  .page-header
+    h3 All Actors in DB
+
+  ul
+    for actor in actors
+      li: img(src="profile_pictures/"+actor.profile.picture, class='profile', width='200', height='200')
+      li= "Name: "+actor.profile.name
+      li= "Age: "+actor.profile.age
+      li= "Location: "+actor.profile.location
+      li= "Bio: "+actor.profile.bio
+      br
+      br
